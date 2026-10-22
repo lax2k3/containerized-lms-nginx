@@ -7,7 +7,7 @@
 
 ## Overview
 
-This project deploys a production-ready Learning Management System (LMS) behind an Nginx reverse proxy with multiple Flask application replicas. The design focuses on resilience, health probes, and horizontal scaling so that a single application failure does not interrupt service delivery.
+This project deploys a production-ready Learning Management System (LMS) behind an Nginx reverse proxy with multiple Flask application replicas. The design focuses on resilience, health probes, and reliable service delivery under load.
 
 The architecture uses:
 
@@ -25,8 +25,8 @@ The architecture uses:
 The system flow is shown below:
 
 <p align="center">
-  <a href="docs/architecture.svg">
-    <img src="docs/architecture.svg" alt="High-Availability LMS Architecture" width="100%" />
+  <a href="docs/architecture_clear.png">
+    <img src="docs/architecture_clear.png" alt="High-Availability LMS Architecture" width="100%" />
   </a>
 </p>
 
@@ -50,7 +50,7 @@ containerized-lms-nginx/
 │   ├── app.py
 │   └── requirements.txt
 ├── docs/
-│   └── architecture.svg
+│   └── architecture_clear.png
 ├── nginx/
 │   └── nginx.conf
 ├── .gitignore
