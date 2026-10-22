@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">High-Availability Containerized LMS Architecture</title>
+  <desc id="desc">Diagram showing client requests routed by Nginx to multiple Flask application replicas with health checks.</desc>
+
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #1f2937; }
+      .subtitle { font: 600 18px Arial, sans-serif; fill: #374151; }
+      .label { font: 600 18px Arial, sans-serif; fill: #111827; }
+      .small { font: 500 14px Arial, sans-serif; fill: #4b5563; }
+      .box { fill: #f8fafc; stroke: #94a3b8; stroke-width: 2; rx: 14; }
+      .primary { fill: #e0f2fe; stroke: #0ea5e9; stroke-width: 2; rx: 14; }
+      .accent { fill: #dcfce7; stroke: #22c55e; stroke-width: 2; rx: 14; }
+      .warning { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; rx: 14; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .dashed { stroke-dasharray: 8 6; }
+      .health { fill: #22c55e; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="700" fill="#ffffff" />
+
+  <text x="600" y="52" text-anchor="middle" class="title">High-Availability Containerized LMS Architecture</text>
+
+  <!-- Client -->
+  <rect x="60" y="120" width="170" height="120" class="box"/>
+  <text x="145" y="170" text-anchor="middle" class="label">Clients</text>
+  <text x="145" y="198" text-anchor="middle" class="small">Browser / API</text>
+  <text x="145" y="220" text-anchor="middle" class="small">Calls</text>
+
+  <!-- NGINX -->
+  <rect x="330" y="120" width="220" height="120" class="primary"/>
+  <text x="440" y="170" text-anchor="middle" class="label">Nginx</text>
+  <text x="440" y="198" text-anchor="middle" class="small">Reverse Proxy</text>
+  <text x="440" y="220" text-anchor="middle" class="small">Round-robin load balancing</text>
+
+  <!-- App replicas -->
+  <rect x="660" y="80" width="180" height="145" class="accent"/>
+  <text x="750" y="118" text-anchor="middle" class="label">App Replica 1</text>
+  <text x="750" y="145" text-anchor="middle" class="small">Flask + Gunicorn</text>
+  <text x="750" y="170" text-anchor="middle" class="small">/health</text>
+  <circle cx="720" cy="190" r="8" class="health"/>
+  <text x="735" y="196" class="small">healthy</text>
+
+  <rect x="660" y="265" width="180" height="145" class="accent"/>
+  <text x="750" y="303" text-anchor="middle" class="label">App Replica 2</text>
+  <text x="750" y="330" text-anchor="middle" class="small">Flask + Gunicorn</text>
+  <text x="750" y="355" text-anchor="middle" class="small">/health</text>
+  <circle cx="720" cy="375" r="8" class="health"/>
+  <text x="735" y="381" class="small">healthy</text>
+
+  <rect x="660" y="450" width="180" height="145" class="warning"/>
+  <text x="750" y="488" text-anchor="middle" class="label">App Replica N</text>
+  <text x="750" y="515" text-anchor="middle" class="small">Flask + Gunicorn</text>
+  <text x="750" y="540" text-anchor="middle" class="small">/health</text>
+  <circle cx="720" cy="560" r="8" fill="#f59e0b"/>
+  <text x="735" y="566" class="small">check</text>
+
+  <!-- Health checks -->
+  <path d="M 550 185 L 660 185" class="arrow"/>
+  <path d="M 660 200 C 620 230, 600 240, 550 240" class="dashed arrow"/>
+  <path d="M 660 345 C 620 300, 600 265, 550 250" class="dashed arrow"/>
+  <path d="M 660 530 C 620 490, 600 300, 550 220" class="dashed arrow"/>
+
+  <!-- Client to NGINX -->
+  <path d="M 230 180 L 330 180" class="arrow"/>
+
+  <!-- NGINX to apps -->
+  <path d="M 550 180 L 660 180" class="arrow"/>
+  <path d="M 550 210 L 660 320" class="arrow"/>
+  <path d="M 550 220 L 660 510" class="arrow"/>
+
+  <!-- Vertical stack label -->
+  <text x="890" y="130" class="subtitle">Backend Pool</text>
+  <text x="893" y="156" class="small">Scaled application instances</text>
+
+  <!-- Service notes -->
+  <rect x="300" y="340" width="280" height="190" class="box"/>
+  <text x="440" y="380" text-anchor="middle" class="label">Operational Behaviors</text>
+  <text x="440" y="420" text-anchor="middle" class="small">• Round-robin request distribution</text>
+  <text x="440" y="447" text-anchor="middle" class="small">• Active health checks on /health</text>
+  <text x="440" y="474" text-anchor="middle" class="small">• Unhealthy nodes are isolated</text>
+  <text x="440" y="501" text-anchor="middle" class="small">• Non-root deployment hardening</text>
+
+</svg>
